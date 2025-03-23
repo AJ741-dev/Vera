@@ -118,10 +118,7 @@ st.markdown(f"""
     <div class="mood-ring {mood.lower()}"></div>
 """, unsafe_allow_html=True)
 
-# Mood ring visual based on selected mood
-if 'mood' in locals():
-    mood_class = mood.lower()
-    st.markdown(f'<div class="mood-ring {mood_class}"></div>', unsafe_allow_html=True)
+# Mood ring visual already rendered in main block
 mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
 focus = st.text_input("What’s your focus today?")
 note = st.text_area("Anything on your mind?")
@@ -141,8 +138,6 @@ if st.button("Submit Check-In"):
     st.success("✅ VERA heard you.")
     st.markdown(f"**VERA ({tone}):** {response}")
 
-</div>
-
 # Optional: Display recent memory
 with st.expander("📝 Recent Check-Ins"):
     memory = load_memory()
@@ -151,4 +146,4 @@ with st.expander("📝 Recent Check-Ins"):
         st.markdown(f"**{timestamp}** — Mood: {entry['mood'].capitalize()}, Focus: {entry['focus']}  ")
     st.markdown(f"*{entry['note']}*  ")
     st.markdown(f"Tone: `{entry['tone']}`")
-    </div>
+    
