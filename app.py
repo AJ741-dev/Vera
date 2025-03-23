@@ -129,7 +129,13 @@ mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
 selected_bg = mood_colors.get(mood, "#f5f5f5")
 st.markdown(f"""
     <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
-    <div class="mood-ring {mood.lower()}"></div>
+    <svg width="120" height="120" style="display: block; margin: auto; margin-bottom: 10px;">
+  <circle cx="60" cy="60" r="30" fill="transparent" stroke="rgba(0,0,0,0.1)" stroke-width="6">
+    <animate attributeName="r" values="30;40;30" dur="2s" repeatCount="indefinite" />
+    <animate attributeName="stroke-opacity" values="0.1;0.3;0.1" dur="2s" repeatCount="indefinite" />
+  </circle>
+</svg>
+<div class="mood-ring {mood.lower()}"></div>
 """, unsafe_allow_html=True)
 focus = st.text_input("What’s your focus today?")
 note = st.text_area("Anything on your mind?")
