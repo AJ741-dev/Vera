@@ -92,8 +92,6 @@ st.markdown("""
                 0 0 20px 8px rgba(0,0,0,0.1);
         }
     }
-        50% { box-shadow: 0 0 30px 15px rgba(0,0,0,0.15); }
-        100% { box-shadow: 0 0 20px 8px rgba(0,0,0,0.05); }
     }
     .calm {
         background: radial-gradient(circle, #a3d5ff, #5caeff);
