@@ -100,6 +100,20 @@ st.markdown("""
 
 st.title("🧠 VERA - Daily Check-In")
 
+# Background container simulation
+mood_colors = {
+    "Calm": "#d3ecff",
+    "Anxious": "#ede5ff",
+    "Motivated": "#fff6cc",
+    "Tired": "#e6e6e6",
+    "Excited": "#ffe4ec",
+    "Focused": "#d5f7f1"
+}
+selected_bg = mood_colors.get(mood, "#f5f5f5")
+st.markdown(f"""
+    <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
+""", unsafe_allow_html=True)
+
 st.write("How are you feeling today?")
 
 # Mood ring visual based on selected mood
@@ -131,5 +145,6 @@ with st.expander("📝 Recent Check-Ins"):
     sorted_entries = sorted(memory.items(), reverse=True)[0:5]
     for timestamp, entry in sorted_entries:
         st.markdown(f"**{timestamp}** — Mood: {entry['mood'].capitalize()}, Focus: {entry['focus']}  ")
+st.markdown("</div>", unsafe_allow_html=True)
         st.markdown(f"*{entry['note']}*  ")
         st.markdown(f"Tone: `{entry['tone']}`\n")
