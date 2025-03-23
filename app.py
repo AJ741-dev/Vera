@@ -64,11 +64,11 @@ st.markdown("""
     <style>
     body {
         background-color: #f5f5f5;
+        
         transition: background-color 4s ease-in-out;
-        transition: background-color 0.5s ease;
     }
     .mood-ring {
-        transition: background 1s ease, background-color 1s ease;
+        transition: background 4s ease, background-color 4s ease-in-out;
         width: 120px;
         height: 120px;
         border-radius: 50%;
@@ -96,7 +96,7 @@ st.markdown("""
         transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #a3d5ff, #5caeff);
         background-color: #d3ecff !important;
-        transition: background-color 2s ease-in-out;
+        
     }
     .anxious {
         transition: background 1s ease, background-color 1s ease;
