@@ -117,7 +117,7 @@ selected_bg = mood_colors.get(mood, "#f5f5f5")
 st.markdown(f"""
     <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
     <div class="mood-ring {mood.lower()}"></div>
-""", unsafe_allow_html=True)("Mood", list(MOOD_TO_TONE.keys()))
+""", unsafe_allow_html=True)
 focus = st.text_input("What’s your focus today?")
 note = st.text_area("Anything on your mind?")
 
@@ -136,12 +136,14 @@ if st.button("Submit Check-In"):
     st.success("✅ VERA heard you.")
     st.markdown(f"**VERA ({tone}):** {response}")
 
+st.markdown("</div>", unsafe_allow_html=True)
+
 # Optional: Display recent memory
 with st.expander("📝 Recent Check-Ins"):
     memory = load_memory()
     sorted_entries = sorted(memory.items(), reverse=True)[0:5]
     for timestamp, entry in sorted_entries:
         st.markdown(f"**{timestamp}** — Mood: {entry['mood'].capitalize()}, Focus: {entry['focus']}  ")
-    st.markdown(f"*{entry['note']}*  ")
-    st.markdown(f"Tone: `{entry['tone']}`")
+        st.markdown(f"*{entry['note']}*  ")
+        st.markdown(f"Tone: `{entry['tone']}`")
     
