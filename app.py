@@ -145,6 +145,7 @@ with st.expander("📝 Recent Check-Ins"):
     sorted_entries = sorted(memory.items(), reverse=True)[0:5]
     for timestamp, entry in sorted_entries:
         st.markdown(f"**{timestamp}** — Mood: {entry['mood'].capitalize()}, Focus: {entry['focus']}  ")
-st.markdown("</div>", unsafe_allow_html=True)
-        st.markdown(f"*{entry['note']}*  ")
-        st.markdown(f"Tone: `{entry['tone']}`\n")
+    st.markdown(f"*{entry['note']}*  ")
+    st.markdown(f"Tone: `{entry['tone']}`
+")
+    st.markdown("</div>", unsafe_allow_html=True)
