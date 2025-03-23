@@ -1,3 +1,16 @@
+from dotenv import load_dotenv
+import os
+import openai
+import streamlit as st
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Access the OpenAI API key from the environment
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+# Now you can use the openai API for GPT requests
+
 import streamlit as st
 import json
 from datetime import datetime
