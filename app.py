@@ -50,6 +50,15 @@ MOOD_TO_TONE = {
 }
 
 # ----- Streamlit UI + Mood Visuals -----
+
+mood_colors = {
+    "Calm": "#d3ecff",
+    "Anxious": "#ede5ff",
+    "Motivated": "#fff6cc",
+    "Tired": "#e6e6e6",
+    "Excited": "#ffe4ec",
+    "Focused": "#d5f7f1"
+}
 st.set_page_config(page_title="VERA Check-In", layout="centered")
 st.markdown("""
     <style>
@@ -101,14 +110,12 @@ st.markdown("""
 st.title("🧠 VERA - Daily Check-In")
 
 # Background container simulation
+
 st.write("How are you feeling today?")
 selected_bg = mood_colors.get(mood, "#f5f5f5")
 st.markdown(f"""
     <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
 """, unsafe_allow_html=True)
-
-st.write("How are you feeling today?")
-mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
 selected_bg = mood_colors.get(mood, "#f5f5f5")
 st.markdown(f"""
     <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
