@@ -76,7 +76,22 @@ st.markdown("""
         animation: pulse 3s infinite ease-in-out;
     }
     @keyframes pulse {
-        0% { box-shadow: 0 0 20px 8px rgba(0,0,0,0.05); }
+        0% {
+            box-shadow:
+                0 0 0px 0px rgba(0,0,0,0.05),
+                0 0 20px 8px rgba(0,0,0,0.1);
+        }
+        50% {
+            box-shadow:
+                0 0 20px 10px rgba(0,0,0,0.1),
+                0 0 40px 20px rgba(0,0,0,0.05);
+        }
+        100% {
+            box-shadow:
+                0 0 0px 0px rgba(0,0,0,0.05),
+                0 0 20px 8px rgba(0,0,0,0.1);
+        }
+    }
         50% { box-shadow: 0 0 30px 15px rgba(0,0,0,0.15); }
         100% { box-shadow: 0 0 20px 8px rgba(0,0,0,0.05); }
     }
