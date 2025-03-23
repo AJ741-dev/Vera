@@ -64,9 +64,11 @@ st.markdown("""
     <style>
     body {
         background-color: #f5f5f5;
+        transition: background-color 2s ease-in-out;
         transition: background-color 0.5s ease;
     }
     .mood-ring {
+        transition: background 1s ease, background-color 1s ease;
         width: 120px;
         height: 120px;
         border-radius: 50%;
@@ -89,41 +91,42 @@ st.markdown("""
             transform: scale(1);
         }
     }
-        50% {
-            box-shadow:
-                0 0 20px 10px rgba(0,0,0,0.1),
-                0 0 40px 20px rgba(0,0,0,0.05);
-        }
-        100% {
-            box-shadow:
-                0 0 0px 0px rgba(0,0,0,0.05),
-                0 0 20px 8px rgba(0,0,0,0.1);
-        }
-    }
     }
     .calm {
+        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #a3d5ff, #5caeff);
         background-color: #d3ecff !important;
+        transition: background-color 2s ease-in-out;
     }
     .anxious {
+        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #d6ccff, #a48bf2);
         background-color: #ede5ff !important;
+        transition: background-color 2s ease-in-out;
     }
     .motivated {
+        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #ffe49e, #f5b700);
         background-color: #fff6cc !important;
+        transition: background-color 2s ease-in-out;
     }
     .tired {
+        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #ccc, #999);
         background-color: #e6e6e6 !important;
+        transition: background-color 2s ease-in-out;
     }
     .excited {
+        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #ffc0cb, #ff69b4);
         background-color: #ffe4ec !important;
+        transition: background-color 2s ease-in-out;
     }
     .focused {
+        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #94e0d1, #2c8d85);
         background-color: #d5f7f1 !important;
+        transition: background-color 2s ease-in-out;
     }
 </style>
 """, unsafe_allow_html=True)
