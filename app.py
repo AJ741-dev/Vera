@@ -64,7 +64,7 @@ st.markdown("""
     <style>
     body {
         background-color: #f5f5f5;
-        transition: background-color 2s ease-in-out;
+        transition: background-color 4s ease-in-out;
         transition: background-color 0.5s ease;
     }
     .mood-ring {
