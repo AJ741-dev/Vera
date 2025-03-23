@@ -138,7 +138,21 @@ st.title("🧠 VERA - Daily Check-In")
 st.write("How are you feeling today?")
 mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
 selected_bg = mood_colors.get(mood, "#f5f5f5")
+# Inject dynamic CSS for background color
 st.markdown(f"""
+    <style>
+    .background-container {{
+        background-color: {selected_bg};
+        padding: 20px;
+        border-radius: 10px;
+        transition: background-color 4s ease-in-out;
+    }}
+    </style>
+""", unsafe_allow_html=True)
+st.markdown("""
+    <div class='background-container'>
+    <div class="mood-ring {mood.lower()} mood-wave"></div>
+""", unsafe_allow_html=True)
     <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
     <!-- Removed the SVG ripple to simplify the mood ring -->
 <div class="mood-ring {mood.lower()} mood-wave"></div>
