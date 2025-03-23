@@ -1,3 +1,5 @@
+pip install --upgrade openai
+
 import streamlit as st
 import json
 from datetime import datetime
@@ -58,19 +60,20 @@ MOOD_TO_TONE = {
 
 # ----- GPT Response Function (Updated) -----
 def get_gpt_response(note, mood, focus):
-    # Construct the prompt with user note, mood, and focus
-    prompt = f"User is feeling {mood} and focusing on {focus}. They said: {note}. Provide an appropriate response."
+    system_message = f"You are VERA, an emotional assistant that helps with mood tracking and daily reflections. Respond based on the user's mood: {mood}. Focus: {focus}."
     
-    # Make the API call using the updated API
-    response = openai.Completion.create(
-        model="text-davinci-003",  # Or use "gpt-3.5-turbo" if you prefer
-        prompt=prompt,
-        max_tokens=150,            # Control the length of the response
-        temperature=0.7            # Control the randomness of the response
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",  # Use this model or another available model
+        messages=[
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": note}
+        ],
+        max_tokens=150,           # Adjust the token limit as needed
+        temperature=0.7           # Adjust the creativity of the response
     )
     
-    # Return the GPT response text
-    return response.choices[0].text.strip()
+    return response['choices'][0]['message']['content'].strip()
+
 
 # ----- Streamlit UI + Mood Visuals -----
 mood_colors = {
