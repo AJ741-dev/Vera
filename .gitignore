@@ -1,3 +1,6 @@
+.env
+
+
 git add .gitignore
 git commit -m "Add .gitignore to protect API key"
 git push
