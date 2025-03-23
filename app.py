@@ -56,18 +56,21 @@ MOOD_TO_TONE = {
     "Focused": "default"
 }
 
-# ----- GPT Response Function -----
+# ----- GPT Response Function (Updated) -----
 def get_gpt_response(note, mood, focus):
-    system_message = f"You are VERA, an emotional assistant that helps with mood tracking and daily reflections. Respond based on the user's mood: {mood}. Focus: {focus}."
+    # Construct the prompt with user note, mood, and focus
+    prompt = f"User is feeling {mood} and focusing on {focus}. They said: {note}. Provide an appropriate response."
     
-    response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",  # Using GPT-3.5 for now
-        messages=[
-            {"role": "system", "content": system_message},
-            {"role": "user", "content": note}
-        ]
+    # Make the API call using the updated API
+    response = openai.Completion.create(
+        model="text-davinci-003",  # Or use "gpt-3.5-turbo" if you prefer
+        prompt=prompt,
+        max_tokens=150,            # Control the length of the response
+        temperature=0.7            # Control the randomness of the response
     )
-    return response.choices[0].message["content"]
+    
+    # Return the GPT response text
+    return response.choices[0].text.strip()
 
 # ----- Streamlit UI + Mood Visuals -----
 mood_colors = {
