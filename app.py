@@ -149,13 +149,9 @@ st.markdown(f"""
     }}
     </style>
 """, unsafe_allow_html=True)
-st.markdown("""
+st.markdown(f"""
     <div class='background-container'>
-    <div class="mood-ring {mood.lower()} mood-wave"></div>
-""", unsafe_allow_html=True)
-    <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
-    <!-- Removed the SVG ripple to simplify the mood ring -->
-<div class="mood-ring {mood.lower()} mood-wave"></div>
+        <div class="mood-ring {mood.lower()} mood-wave"></div>
 """, unsafe_allow_html=True)
 focus = st.text_input("What’s your focus today?")
 note = st.text_area("Anything on your mind?")
