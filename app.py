@@ -73,7 +73,7 @@ st.markdown("""
         margin: auto;
         margin-bottom: 10px;
         box-shadow: 0 0 20px 8px rgba(0,0,0,0.1);
-        animation: pulse 3s infinite ease-in-out;
+        animation: pulse 4s infinite ease-in-out;
     }
     @keyframes pulse {
         0% {
