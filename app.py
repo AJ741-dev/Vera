@@ -49,11 +49,63 @@ MOOD_TO_TONE = {
     "Focused": "default"
 }
 
-# ----- Streamlit UI -----
+# ----- Streamlit UI + Mood Visuals -----
 st.set_page_config(page_title="VERA Check-In", layout="centered")
+st.markdown("""
+    <style>
+    body {
+        background-color: #f5f5f5;
+        transition: background-color 0.5s ease;
+    }
+    .mood-ring {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin: auto;
+        margin-bottom: 10px;
+        box-shadow: 0 0 20px 8px rgba(0,0,0,0.1);
+        animation: pulse 3s infinite ease-in-out;
+    }
+    @keyframes pulse {
+        0% { box-shadow: 0 0 20px 8px rgba(0,0,0,0.05); }
+        50% { box-shadow: 0 0 30px 15px rgba(0,0,0,0.15); }
+        100% { box-shadow: 0 0 20px 8px rgba(0,0,0,0.05); }
+    }
+    .calm {
+        background: radial-gradient(circle, #a3d5ff, #5caeff);
+        background-color: #d3ecff !important;
+    }
+    .anxious {
+        background: radial-gradient(circle, #d6ccff, #a48bf2);
+        background-color: #ede5ff !important;
+    }
+    .motivated {
+        background: radial-gradient(circle, #ffe49e, #f5b700);
+        background-color: #fff6cc !important;
+    }
+    .tired {
+        background: radial-gradient(circle, #ccc, #999);
+        background-color: #e6e6e6 !important;
+    }
+    .excited {
+        background: radial-gradient(circle, #ffc0cb, #ff69b4);
+        background-color: #ffe4ec !important;
+    }
+    .focused {
+        background: radial-gradient(circle, #94e0d1, #2c8d85);
+        background-color: #d5f7f1 !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
 st.title("🧠 VERA - Daily Check-In")
 
 st.write("How are you feeling today?")
+
+# Mood ring visual based on selected mood
+if 'mood' in locals():
+    mood_class = mood.lower()
+    st.markdown(f'<div class="mood-ring {mood_class}"></div>', unsafe_allow_html=True)
 mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
 focus = st.text_input("What’s your focus today?")
 note = st.text_area("Anything on your mind?")
