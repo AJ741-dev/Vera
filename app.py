@@ -1,20 +1,14 @@
-from dotenv import load_dotenv
-import os
-import openai
-import streamlit as st
-
-# Load environment variables from .env file
-load_dotenv()
-
-# Access the OpenAI API key from the environment
-openai.api_key = os.getenv("OPENAI_API_KEY")
-
-# Now you can use the openai API for GPT requests
-
 import streamlit as st
 import json
 from datetime import datetime
 import random
+import openai
+from dotenv import load_dotenv
+import os
+
+# ----- Load Environment Variables -----
+load_dotenv()  # Load environment variables from .env file
+openai.api_key = os.getenv("OPENAI_API_KEY")  # Access the OpenAI API key securely
 
 # ----- Memory File Setup -----
 MEMORY_FILE = "vera_memory.json"
@@ -62,8 +56,20 @@ MOOD_TO_TONE = {
     "Focused": "default"
 }
 
-# ----- Streamlit UI + Mood Visuals -----
+# ----- GPT Response Function -----
+def get_gpt_response(note, mood, focus):
+    system_message = f"You are VERA, an emotional assistant that helps with mood tracking and daily reflections. Respond based on the user's mood: {mood}. Focus: {focus}."
+    
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",  # Using GPT-3.5 for now
+        messages=[
+            {"role": "system", "content": system_message},
+            {"role": "user", "content": note}
+        ]
+    )
+    return response.choices[0].message["content"]
 
+# ----- Streamlit UI + Mood Visuals -----
 mood_colors = {
     "Calm": "#d3ecff",
     "Anxious": "#ede5ff",
@@ -72,12 +78,12 @@ mood_colors = {
     "Excited": "#ffe4ec",
     "Focused": "#d5f7f1"
 }
+
 st.set_page_config(page_title="VERA Check-In", layout="centered")
 st.markdown("""
     <style>
     body {
         background-color: #f5f5f5;
-        
         transition: background-color 4s ease-in-out;
     }
     .mood-ring {
@@ -104,54 +110,39 @@ st.markdown("""
             transform: scale(1);
         }
     }
-    }
     .calm {
-        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #a3d5ff, #5caeff);
         background-color: #d3ecff !important;
-        
     }
     .anxious {
-        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #d6ccff, #a48bf2);
         background-color: #ede5ff !important;
-        transition: background-color 2s ease-in-out;
     }
     .motivated {
-        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #ffe49e, #f5b700);
         background-color: #fff6cc !important;
-        transition: background-color 2s ease-in-out;
     }
     .tired {
-        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #ccc, #999);
         background-color: #e6e6e6 !important;
-        transition: background-color 2s ease-in-out;
     }
     .excited {
-        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #ffc0cb, #ff69b4);
         background-color: #ffe4ec !important;
-        transition: background-color 2s ease-in-out;
     }
     .focused {
-        transition: background 1s ease, background-color 1s ease;
         background: radial-gradient(circle, #94e0d1, #2c8d85);
         background-color: #d5f7f1 !important;
-        transition: background-color 2s ease-in-out;
     }
-</style>
+    </style>
 """, unsafe_allow_html=True)
 
 st.title("🧠 VERA - Daily Check-In")
 
-# Background container simulation
-
+# ----- Check-In Logic -----
 st.write("How are you feeling today?")
 mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
 selected_bg = mood_colors.get(mood, "#f5f5f5")
-# Inject dynamic CSS for background color
 st.markdown(f"""
     <style>
     .background-container {{
@@ -166,12 +157,16 @@ st.markdown(f"""
     <div class='background-container'>
         <div class="mood-ring {mood.lower()} mood-wave"></div>
 """, unsafe_allow_html=True)
+
 focus = st.text_input("What’s your focus today?")
 note = st.text_area("Anything on your mind?")
 
 if st.button("Submit Check-In"):
     tone = MOOD_TO_TONE.get(mood, "default")
     response = random.choice(TONE_PROFILES[tone]).format(focus=focus)
+    
+    # Get GPT response based on user's note, mood, and focus
+    gpt_response = get_gpt_response(note, mood, focus)
 
     reflection = {
         "mood": mood.lower(),
@@ -183,6 +178,7 @@ if st.button("Submit Check-In"):
 
     st.success("✅ VERA heard you.")
     st.markdown(f"**VERA ({tone}):** {response}")
+    st.markdown(f"**VERA (GPT Response):** {gpt_response}")
 
 st.markdown("</div>", unsafe_allow_html=True)
 
@@ -194,4 +190,3 @@ with st.expander("📝 Recent Check-Ins"):
         st.markdown(f"**{timestamp}** — Mood: {entry['mood'].capitalize()}, Focus: {entry['focus']}  ")
         st.markdown(f"*{entry['note']}*  ")
         st.markdown(f"Tone: `{entry['tone']}`")
-    
