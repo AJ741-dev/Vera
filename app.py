@@ -112,14 +112,12 @@ st.title("🧠 VERA - Daily Check-In")
 # Background container simulation
 
 st.write("How are you feeling today?")
+mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
 selected_bg = mood_colors.get(mood, "#f5f5f5")
 st.markdown(f"""
     <div style='background-color: {selected_bg}; padding: 20px; border-radius: 10px;'>
     <div class="mood-ring {mood.lower()}"></div>
-""", unsafe_allow_html=True)
-
-# Mood ring visual already rendered in main block
-mood = st.selectbox("Mood", list(MOOD_TO_TONE.keys()))
+""", unsafe_allow_html=True)("Mood", list(MOOD_TO_TONE.keys()))
 focus = st.text_input("What’s your focus today?")
 note = st.text_area("Anything on your mind?")
 
